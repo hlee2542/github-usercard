@@ -85,7 +85,7 @@ function makeCard(follower) {
   let profile = document.createElement('p');
   profile.textContent = "Profile: ";
   let link = document.createElement('a');
-  link.href = follower.url;
+  link.href = follower.html_url;
   link.textContent = follower.url;
   profile.append(link);
   cardInfo.append(profile);
