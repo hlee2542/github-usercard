@@ -107,7 +107,7 @@ function makeCard(follower) {
   if (follower.following || follower.following === 0) {
     following.textContent = `Following: ${follower.following}`;
   } else {
-    axios.get(follower.following_url)
+    axios.get(follower.following_url.split('{')[0])
       .then(response => following.textContent = `Following: ${response.data.length}`);
   }
   cardInfo.append(following);
