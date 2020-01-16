@@ -3,8 +3,6 @@
            https://api.github.com/users/<your name>
 */
 //const axios = require('axios').default;
-axios.get('https://api.github.com/users/hlee2542')
-  .then(response => console.log(response));
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -17,6 +15,13 @@ axios.get('https://api.github.com/users/hlee2542')
            create a new component and add it to the DOM as a child of .cards
 */
 
+let cards = document.querySelector('.cards');
+axios.get('https://api.github.com/users/hlee2542')
+  .then(response => cards.append(makeCard(response.data)));
+
+/*axios.get('https://api.github.com/users/hlee2542/followers')
+  .then(response => console.log(response));*/
+
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
@@ -28,6 +33,9 @@ axios.get('https://api.github.com/users/hlee2542')
 */
 
 const followersArray = [];
+axios.get('https://api.github.com/users/hlee2542/followers')
+  .then(response => response.data.forEach(user => followersArray.push(user)))
+    .then(() => followersArray.forEach(user => cards.append(makeCard(user))));
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -95,6 +103,7 @@ function makeCard(follower) {
   cardInfo.append(bio);
 
   card.append(cardInfo);
+  return card;
 }
 
 /* List of LS Instructors Github username's: 
