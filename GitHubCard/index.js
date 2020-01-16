@@ -79,7 +79,11 @@ function makeCard(follower) {
   cardInfo.append(username);
 
   let location = document.createElement('p');
-  location.textContent = `Location: ${follower.location}`;
+  if (follower.location) {
+    location.textContent = `Location: ${follower.location}`;
+  } else {
+    location.textContent = `Location: Unknown`;
+  }
   cardInfo.append(location);
 
   let profile = document.createElement('p');
@@ -91,15 +95,29 @@ function makeCard(follower) {
   cardInfo.append(profile);
 
   let followers = document.createElement('p');
-  followers.textContent = `Followers: ${follower.followers}`;
+  if (follower.followers || follower.followers === 0) {
+    followers.textContent = `Followers: ${follower.followers}`;
+  } else {
+    axios.get(follower.followers_url)
+      .then(response => followers.textContent = `Followers: ${response.data.length}`);
+  }
   cardInfo.append(followers);
 
   let following = document.createElement('p');
-  following.textContent = `Following: ${follower.following}`;
+  if (follower.following || follower.following === 0) {
+    following.textContent = `Following: ${follower.following}`;
+  } else {
+    axios.get(follower.following_url)
+      .then(response => following.textContent = `Following: ${response.data.length}`);
+  }
   cardInfo.append(following);
 
   let bio = document.createElement('p');
-  bio.textContent = `Bio: ${follower.bio}`;
+  if (follower.bio) {
+    bio.textContent = `Bio: ${follower.bio}`;
+  } else {
+    bio.textContent = `Bio: None`;
+  }
   cardInfo.append(bio);
 
   card.append(cardInfo);
