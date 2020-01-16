@@ -2,6 +2,9 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+//const axios = require('axios').default;
+axios.get('https://api.github.com/users/hlee2542')
+  .then(response => console.log(response));
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -45,6 +48,54 @@ const followersArray = [];
 </div>
 
 */
+
+function makeCard(follower) {
+  let card = document.createElement('div');
+  card.classList.toggle('card');
+
+  let img = document.createElement('img');
+  img.src = follower.avatar_url;
+  card.append(img);
+
+  let cardInfo = document.createElement('div');
+  cardInfo.classList.toggle('card-info');
+
+  let name = document.createElement('h3');
+  name.classList.toggle('name');
+  name.textContent = follower.name;
+  cardInfo.append(name);
+
+  let username = document.createElement('p');
+  username.classList.toggle('username');
+  username.textContent = follower.login;
+  cardInfo.append(username);
+
+  let location = document.createElement('p');
+  location.textContent = `Location: ${follower.location}`;
+  cardInfo.append(location);
+
+  let profile = document.createElement('p');
+  profile.textContent = "Profile: ";
+  let link = document.createElement('a');
+  link.href = follower.url;
+  link.textContent = follower.url;
+  profile.append(link);
+  cardInfo.append(profile);
+
+  let followers = document.createElement('p');
+  followers.textContent = `Followers: ${follower.followers}`;
+  cardInfo.append(followers);
+
+  let following = document.createElement('p');
+  following.textContent = `Following: ${follower.following}`;
+  cardInfo.append(following);
+
+  let bio = document.createElement('p');
+  bio.textContent = `Bio: ${follower.bio}`;
+  cardInfo.append(bio);
+
+  card.append(cardInfo);
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
